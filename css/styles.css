@@ -16,6 +16,48 @@
   --button-bg-color: #f5f4fa;
   --hero-bg-color: #2f303a;
   --footer-bg-color: #2f303a;
+  --header-line-color: #ececec;
+  --project-item-border-color: #eeeeee;
+
+  --header-item-right-margin: 50px;
+  --header-top-margin: 24px;
+  --header-bottom-margin: 25px;
+  --logo-right-margin: 93px;
+
+  --footer-top-bottom-padding: 60px;
+  --footer-bottom-margin: 20px;
+  --footer-item-margin: 9px;
+
+  --container-width: 1200px;
+  --container-gutter: 30px;
+}
+
+/* Глобальный сброс стилей некоторым тэгам */
+p,
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Класс для скрытия зазоров у элемента img */
+.img-no-gap {
+  display: block;
+}
+
+/* временный класс для скрытия элементов */
+.hidden {
+  display: none;
 }
 
 /* Класс для оформления основной страницы */
@@ -31,6 +73,9 @@
 
 .page-header {
   background-color: var(--primary-bg-color);
+  border-bottom: 1px solid var(--header-line-color);
+  padding-top: var(--header-top-margin);
+  padding-bottom: var(--header-bottom-margin);
 }
 
 /* Класс для оформления основного контейнера */
@@ -38,15 +83,23 @@
 .container {
   margin-left: auto;
   margin-right: auto;
-  width: 1440px;
-  outline: 2px solid tomato;
+  width: var(--container-width);
+  padding: 0 calc(var(--container-gutter) / 2);
+  /* для тестирования */
+  /* outline: 1px dotted tomato; */
 }
 
-/* Класс для обнуления атрибутов списка */
-.list {
-  padding: 0;
-  margin: 0;
-  list-style: none;
+/* Класс для оформления дизайна основного flexbox в header */
+
+.header-set {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-subset {
+  display: flex;
+  align-items: center;
 }
 
 /* Классы для оформления лого сайта */
@@ -57,6 +110,10 @@
   font-size: 26px;
   line-height: 1.19;
   text-decoration: none;
+}
+
+.logo.r-margin {
+  margin-right: var(--logo-right-margin);
 }
 
 .logo-right {
@@ -70,9 +127,17 @@
 /* Классы для оформления footer-секции */
 .footer {
   background-color: var(--footer-bg-color);
+  padding-top: var(--footer-top-bottom-padding);
+  padding-bottom: var(--footer-top-bottom-padding);
+}
+
+.footer .top-margin {
+  margin-top: var(--footer-bottom-margin);
 }
 
 .footer .text {
+  display: flex;
+  flex-direction: column;
   font-style: normal;
   font-size: 14px;
   line-height: 1.71;
@@ -86,6 +151,7 @@
   color: var(--footer-text-color);
 
   text-decoration: none;
+  margin-top: var(--footer-item-margin);
 }
 
 .footer .contacts:hover,
@@ -94,6 +160,11 @@
 }
 
 /* Стилизация навигации сайта */
+
+.site-nav {
+  display: flex;
+}
+
 .site-nav .link {
   color: var(--title-text-color);
 
@@ -105,11 +176,23 @@
   text-decoration: none;
 }
 
+.site-nav > .list-item:not(:last-child) {
+  margin-right: var(--header-item-right-margin);
+}
+
 .site-nav .link.current {
   color: var(--accent-color);
 }
 
 /* Стилизация контактов сайта */
+.site-contacts {
+  display: flex;
+}
+
+.site-contacts > .list-item:not(:last-child) {
+  margin-right: var(--header-item-right-margin);
+}
+
 .site-contacts .link {
   color: var(--main-text-color);
 
@@ -135,16 +218,28 @@
   background-color: var(--hero-bg-color);
 
   text-align: center;
+  padding: 200px 0;
 }
 
 .hero-title {
   color: var(--primary-bg-color);
-  background-color: tomato;
   font-weight: 900;
   font-size: 44px;
   line-height: 1.36;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  max-width: 696px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30px;
+}
+
+/* Универсальный класс для определения padding-top и padding bottom  */
+
+.section {
+  padding-top: 94px;
+  padding-bottom: 94px;
+  /* outline: 1px dotted darkblue; */
 }
 
 /* Класс для оформления заголовков разделов */
@@ -154,9 +249,19 @@
   font-size: 36px;
   line-height: 1.17;
   text-align: center;
+  margin-bottom: 50px;
 }
 
 /* Классы для оформления раздела Особенности */
+.features {
+  display: flex;
+  justify-content: space-between;
+}
+
+.features > .item {
+  flex-basis: calc((var(--container-width) - var(--container-gutter) * 4) / 4);
+}
+
 .features .title {
   color: var(--title-text-color);
 
@@ -168,9 +273,35 @@
 .features .text {
   font-size: 14px;
   line-height: 1.71;
+  margin-top: 10px;
 }
 
-/* Классы для оформления информации о сотрудниках */
+/* Классы для оформления секции "Чем мы занимаемся" */
+
+.about {
+  display: flex;
+  justify-content: space-between;
+}
+
+.about > .item {
+  flex-basis: calc(var(--container-width) / 3 - var(--container-gutter));
+}
+
+/* Классы для оформления секции "Наша команда" */
+
+.section.special {
+  background-color: var(--team-section-bg-color);
+}
+
+.employee {
+  display: flex;
+  justify-content: space-between;
+}
+
+.employee > .item {
+  flex-basis: calc(var(--container-width) / 4 - var(--container-gutter));
+}
+
 .employee .title {
   color: var(--title-text-color);
 
@@ -178,21 +309,45 @@
   font-size: 16px;
   line-height: 1.19;
   text-align: center;
+  margin-top: 30px;
+  margin-bottom: 10px;
 }
 
 .employee .position {
   font-size: 16px;
   line-height: 1.19;
   text-align: center;
+  margin-bottom: 30px;
 }
 
 /* Классы для оформления информации о проектах */
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.projects > .item {
+  flex-basis: calc(var(--container-width) / 3 - var(--container-gutter));
+}
+
+.projects .item-bottom {
+  border: 1px solid var(--project-item-border-color);
+  border-top: 1px solid transparent;
+}
+
+.projects .card {
+  margin: 20px 24px;
+}
+
 .projects .title {
   color: var(--title-text-color);
 
   font-size: 18px;
   line-height: 2;
   letter-spacing: 0.06em;
+  margin-bottom: 4px;
 }
 
 .projects .category {
@@ -201,6 +356,16 @@
 }
 
 /* Классы для оформления кнопок */
+.portfolio {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+.portfolio > .item:not(:last-child) {
+  margin-right: 8px;
+}
+
 .button {
   display: inline-block; /* возможно что это лишнее */
   border-radius: 4px;
@@ -215,8 +380,6 @@
   font-size: 16px;
   line-height: 1.62;
   letter-spacing: 0.03em;
-
-  cursor: pointer;
 }
 
 .filter-button {
@@ -232,8 +395,11 @@
   font-size: 16px;
   line-height: 1.62;
   letter-spacing: 0.03em;
+}
 
-  cursor: pointer;
+.filter-button.primary {
+  color: var(--primary-button-text-color);
+  background-color: var(--primary-button-bg-color);
 }
 
 .button.primary {
@@ -241,7 +407,6 @@
   background-color: var(--primary-button-bg-color);
 
   font-weight: 700;
-  font-size: 16px;
   line-height: 1.87;
   letter-spacing: 0.06em;
 }
