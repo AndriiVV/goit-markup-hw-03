@@ -30,6 +30,7 @@
 
   --container-width: 1200px;
   --container-gutter: 30px;
+  --container-items: 1;
 }
 
 /* Глобальный сброс стилей некоторым тэгам */
@@ -86,13 +87,14 @@ ul {
   width: var(--container-width);
   padding: 0 calc(var(--container-gutter) / 2);
   /* для тестирования */
-  /* outline: 1px dotted tomato; */
+  /* outline: 1px dotted darkblue; */
 }
 
 /* Класс для оформления дизайна основного flexbox в header */
 
 .header-set {
   display: flex;
+  /* Для двух элементов (<nav> и <ul>) оставим space-between */
   justify-content: space-between;
   align-items: center;
 }
@@ -242,6 +244,10 @@ ul {
   /* outline: 1px dotted darkblue; */
 }
 
+.section.no-padding {
+  padding-bottom: 0;
+}
+
 /* Класс для оформления заголовков разделов */
 .section-title {
   color: var(--title-text-color);
@@ -255,11 +261,16 @@ ul {
 /* Классы для оформления раздела Особенности */
 .features {
   display: flex;
-  justify-content: space-between;
+  --container-items: 4;
 }
 
-.features > .item {
-  flex-basis: calc((var(--container-width) - var(--container-gutter) * 4) / 4);
+.features .item {
+  flex-basis: calc(var(--container-width) / var(--container-items) - var(--container-gutter));
+  margin-right: var(--container-gutter);
+}
+
+.features .item:last-child {
+  margin-right: 0;
 }
 
 .features .title {
@@ -280,11 +291,16 @@ ul {
 
 .about {
   display: flex;
-  justify-content: space-between;
+  --container-items: 3;
 }
 
 .about > .item {
-  flex-basis: calc(var(--container-width) / 3 - var(--container-gutter));
+  flex-basis: calc(var(--container-width) / var(--container-items) - var(--container-gutter));
+  margin-right: var(--container-gutter);
+}
+
+.about > .item:last-child {
+  margin-right: 0;
 }
 
 /* Классы для оформления секции "Наша команда" */
@@ -295,11 +311,21 @@ ul {
 
 .employee {
   display: flex;
-  justify-content: space-between;
+  --container-items: 4;
 }
 
 .employee > .item {
-  flex-basis: calc(var(--container-width) / 4 - var(--container-gutter));
+  flex-basis: calc(var(--container-width) / var(--container-items) - var(--container-gutter));
+  margin-right: var(--container-gutter);
+}
+
+.employee > .item:last-child {
+  margin-right: 0;
+}
+
+.employee .card {
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 .employee .title {
@@ -309,7 +335,6 @@ ul {
   font-size: 16px;
   line-height: 1.19;
   text-align: center;
-  margin-top: 30px;
   margin-bottom: 10px;
 }
 
@@ -317,14 +342,12 @@ ul {
   font-size: 16px;
   line-height: 1.19;
   text-align: center;
-  margin-bottom: 30px;
 }
 
 /* Классы для оформления информации о проектах */
 .projects {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   gap: 30px;
 }
 
@@ -338,7 +361,7 @@ ul {
 }
 
 .projects .card {
-  margin: 20px 24px;
+  padding: 20px 24px;
 }
 
 .projects .title {
